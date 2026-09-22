@@ -1,8 +1,9 @@
-const CACHE = 'elrdplus-v34';
+const CACHE = 'elrdplus-v37';
 const ASSETS = [
   './',
   './index.html',
   './manifest.webmanifest',
+  './icons/icon-180.png',
   './icons/icon-192.png',
   './icons/icon-512.png'
 ];

@@ -1,17 +1,22 @@
-ELRD+ PWA v34
+ELRD+ PWA v37
 
-Diese PWA basiert auf ELRD_Patientendokumentation_Prototyp_v34.html.
+Basis: ELRD_Patientendokumentation_Prototyp_v37.html
 
 Für GitHub Pages den INHALT dieses Ordners in das Repository hochladen:
-- index.html
-- manifest.webmanifest
-- service-worker.js
-- .nojekyll
-- icons/
+index.html
+manifest.webmanifest
+service-worker.js
+.nojekyll
+icons/
 
-Danach GitHub Pages aktivieren und die erzeugte HTTPS-Adresse einmal in Safari auf dem iPad öffnen.
-Über Teilen > Zum Home-Bildschirm kann ELRD+ installiert werden.
+Das gewünschte ELRD+-Symbol ist als Apple-Touch-Icon und PWA-Icon integriert.
 
-Die App-Dateien werden für Offlinebetrieb gecacht. Ein laufender Einsatz wird lokal auf dem iPad gespeichert.
-Hinweis: localStorage ist keine verschlüsselte Patientendatenbank. Vor produktiver Nutzung mit echten Patientendaten
-müssen Datenschutz, Zugriffsschutz und Löschkonzept organisatorisch/technisch geprüft werden.
+Nach Veröffentlichung über GitHub Pages:
+1. Adresse in Safari öffnen.
+2. Teilen > Zum Home-Bildschirm.
+3. ELRD+ hinzufügen.
+
+Offlinebetrieb:
+Nach dem ersten vollständigen Laden werden die App-Dateien gecacht.
+Der laufende Einsatz wird lokal auf dem iPad gespeichert.
+Der Button Blankoformular löscht auch den lokal gespeicherten Einsatz.
