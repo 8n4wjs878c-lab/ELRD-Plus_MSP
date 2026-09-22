@@ -14,7 +14,6 @@
     body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
     button,input,textarea{font:inherit}
     .topbar{height:108px;background:linear-gradient(90deg,var(--nav),var(--nav2));color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:7px 20px 18px}
-    .statusbar{display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:700}
     .mainbar{display:flex;align-items:center;justify-content:space-between;gap:18px}
     .brand{display:flex;align-items:center;gap:16px;min-width:0}
     .hamb{font-size:34px;line-height:1}
@@ -160,7 +159,7 @@
     /* iPad Querformat: kompakte, möglichst formatfüllende Darstellung */
     @media (orientation:landscape) and (min-width:900px){
       .topbar{height:76px;padding:4px 14px 9px}
-      .statusbar{font-size:12px}.star{width:38px;height:38px}.hamb{font-size:29px}
+.star{width:38px;height:38px}.hamb{font-size:29px}
       .brand-title{font-size:19px}.brand-sub{font-size:13px}.actions{gap:24px}.action-icon{font-size:20px}
       .brk-brand{gap:7px;padding-left:12px;margin-left:0}.brk-cross{width:30px;height:30px;flex-basis:30px}.brk-cross:before{width:10px;height:30px;left:10px}.brk-cross:after{width:30px;height:10px;top:10px}.brk-name{font-size:11px}.brk-kv{font-size:9px}
       main{padding:10px 10px 8px}
@@ -222,7 +221,6 @@
 </head>
 <body>
   <header class="topbar">
-    <div class="statusbar"><div>09:41&nbsp;&nbsp; Dienstag 21. Mai</div><div>⌁&nbsp; 100 % ▣</div></div>
     <div class="mainbar">
       <div class="brand">
         <div><div class="brand-title">Patientendokumentation</div><div class="brand-sub">Einsatzleiter Rettungsdienst</div></div>
@@ -1190,6 +1188,7 @@
     // --- PWA / lokale Einsatzspeicherung ---
     var ELRD_STORAGE_KEY = 'elrdplus_current_incident_v37';
     var ELRD_saveTimer = null;
+    var ELRD_isResetting = false;
 
     function collectOverviewData() {
       var data = {
@@ -1219,6 +1218,7 @@
     }
 
     function saveCurrentIncident() {
+      if (ELRD_isResetting) return;
       try {
         localStorage.setItem(ELRD_STORAGE_KEY, JSON.stringify({
           savedAt: new Date().toISOString(),
@@ -1229,6 +1229,7 @@
     }
 
     function scheduleSave() {
+      if (ELRD_isResetting) return;
       clearTimeout(ELRD_saveTimer);
       ELRD_saveTimer = setTimeout(saveCurrentIncident, 180);
     }
@@ -1298,6 +1299,8 @@
     if (resetButtonPWA) {
       resetButtonPWA.onclick = function(){
         if (window.confirm('Alle eingetragenen Patientendaten, Texte und Einsatzangaben löschen und ein Blankoformular herstellen?')) {
+          ELRD_isResetting = true;
+          clearTimeout(ELRD_saveTimer);
           clearStoredIncident();
           window.location.reload();
         }
