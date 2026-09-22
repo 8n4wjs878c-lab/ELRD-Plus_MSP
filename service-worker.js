@@ -1,11 +1,11 @@
-const CACHE = 'elrdplus-v37';
+const CACHE = 'elrdplus-v37-iconfix-1';
 const ASSETS = [
   './',
   './index.html',
   './manifest.webmanifest',
-  './icons/icon-180.png',
-  './icons/icon-192.png',
-  './icons/icon-512.png'
+  './elrd-icon-v37.png',
+  './icon-192.png',
+  './icon-512.png'
 ];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
