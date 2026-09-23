@@ -194,6 +194,11 @@
       #injuryNotes{min-height:54px;height:54px;margin-top:8px;font-size:12px;padding:7px}.detail-status{margin-top:4px;font-size:10px}
     }
 
+    .info-btn{height:42px;padding:0 12px;border:1px solid #9eb3c7;border-radius:8px;background:#eef5fb;color:#173d5d;font-weight:800;font-size:12px;cursor:pointer}
+    .info-page{display:none;position:fixed;inset:0;z-index:5000;background:#f5f7fa;overflow:auto;color:#18232d}.info-page.active{display:block}
+    .info-top{position:sticky;top:0;display:flex;align-items:center;gap:16px;padding:12px 18px;background:#0b2844;color:#fff}.info-top h1{margin:0;font-size:21px}
+    .info-back{background:#fff;color:#0b2844;border:0;border-radius:8px;padding:9px 15px;font-weight:800}.info-content{max-width:1050px;margin:auto;padding:18px 24px 34px}
+    .info-card{background:#fff;border:1px solid #d9e0e6;border-radius:10px;padding:15px 18px;margin-bottom:12px}.info-card h2{margin:0 0 9px;color:#0b2844;font-size:18px}.info-card p{margin:0 0 9px;line-height:1.48;font-size:14px}.info-copy{text-align:center}
     .reset-btn{height:42px;padding:0 13px;border:1px solid #b8c3ce;border-radius:8px;background:#fff;color:#7b1f27;font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap}
     .reset-btn:active{transform:translateY(1px);background:#f6eeee}
     .share-btn{height:38px;padding:0 14px;border:0;border-radius:8px;background:#173f62;color:#fff;font-weight:800;cursor:pointer;white-space:nowrap}
@@ -259,6 +264,7 @@
                 </div>
                 <button type="button" id="shareBtn" class="share-btn">Teilen</button>
                 <button type="button" id="resetBtn" class="reset-btn">Blankoformular</button>
+<button type="button" id="infoBtn" class="info-btn">Info</button>
               </div>
             </div>
             <div class="incident-field incident-description">
@@ -651,6 +657,12 @@
   </div>
   <section id="printReport"></section>
 
+<section id="infoPage" class="info-page" aria-hidden="true"><div class="info-top"><button type="button" id="infoBackBtn" class="info-back">← Zurück</button><h1>ELRD+ Patientendokumentation – Info</h1></div><div class="info-content">
+<div class="info-card"><h2>Kurzanleitung</h2><p>ELRD+ dient zur übersichtlichen Erfassung und Dokumentation von Patienten im Rahmen eines rettungsdienstlichen Einsatzes.</p><p>Auf der Seite <strong>„Patientenerfassung“</strong> können bis zu acht Patienten erfasst werden. Neben Name, Geburtsdatum, Alter und Geschlecht können Sichtungskategorie, Transportmittel, Transportziel, Schockraumanmeldung und weitere einsatzrelevante Angaben dokumentiert werden.</p><p>Durch Antippen der <strong>durchlaufenden Nummer (1-8)</strong> öffnet sich die zugehörige Detailseite. Dort können unter anderem Verletzungsmuster und Auffälligkeiten nach dem ABCDE-Schema dokumentiert werden. Auch der dreistellige RMI (für den PZC-Code) kann eingegeben werden. Wenn das Alter bzw. das Geburtsdatum und die korrekte Sichtungskategorie eingetragen wurden, erscheint auf der Übersichtsseite der komplette PZC-Code für den Patienten und das Feld wird hellblau hinterlegt.</p><p>Die <strong>Sichtungskategorie auf der Übersichtsseite</strong> kann durch Antippen geändert werden.</p><p>Über <strong>„Teilen“</strong> können die erfassten Patientendaten für die weitere Verwendung bzw. zum Drucken ausgegeben werden. Es werden nur Patienten ausgegeben, für die tatsächlich Daten erfasst wurden.</p><p>Über <strong>„Blankoformular“</strong> werden nach einer Sicherheitsabfrage sämtliche Daten des aktuellen Einsatzes gelöscht und die Anwendung in den Ausgangszustand zurückgesetzt.</p></div>
+<div class="info-card"><h2>Offline-Nutzung</h2><p>ELRD+ ist als Progressive Web App (PWA) ausgeführt und kann nach der Installation auf dem Home-Bildschirm auch ohne aktive Internetverbindung verwendet werden.</p><p>Die Daten eines laufenden Einsatzes werden <strong>lokal auf dem verwendeten iPad gespeichert</strong>, damit sie beim Schließen oder erneuten Öffnen der App erhalten bleiben.</p></div>
+<div class="info-card"><h2>Datenschutz</h2><p>Die in ELRD+ eingegebenen Patienten- und Einsatzdaten werden in der derzeitigen Version <strong>nicht an einen zentralen Server oder eine externe Datenbank übertragen</strong>. Die automatische Speicherung erfolgt ausschließlich lokal im Speicher des verwendeten Browsers bzw. der installierten Web-App.</p><p>Mit der Funktion <strong>„Blankoformular“</strong> werden die lokal für den aktuellen Einsatz gespeicherten Daten gelöscht.</p><p>Bei der Nutzung der Teilen-, Druck- oder E-Mail-Funktionen verlassen die ausgewählten Daten gegebenenfalls die Anwendung. Für die weitere Verarbeitung, Übermittlung und Aufbewahrung gelten die jeweiligen organisatorischen und datenschutzrechtlichen Vorgaben des Anwenders bzw. der verantwortlichen Stelle.</p><p>Das verwendete iPad sollte durch geeignete Zugriffsschutzmaßnahmen gegen unbefugte Nutzung gesichert sein.</p></div>
+<div class="info-card"><h2>Hinweis</h2><p>ELRD+ unterstützt die Dokumentation und Übersicht im Einsatz. Die Anwendung ersetzt keine medizinische Beurteilung, keine vorgeschriebenen Dokumentationssysteme und keine geltenden dienstlichen oder organisatorischen Vorgaben.</p></div>
+<div class="info-card info-copy"><h2>Copyright</h2><p><strong>© Dirk Zirwick</strong></p><p>ELRD+ Patientendokumentation</p><p>Alle Rechte vorbehalten.</p></div></div></section>
   <script>
     var ELRD = {
       active: null,
@@ -978,6 +990,9 @@
 
       var shareModal = document.getElementById('shareModal');
       document.getElementById('shareBtn').onclick = function(){ shareModal.classList.add('active'); shareModal.setAttribute('aria-hidden','false'); };
+      var infoPage=document.getElementById('infoPage');
+      document.getElementById('infoBtn').onclick=function(){infoPage.classList.add('active');infoPage.setAttribute('aria-hidden','false');};
+      document.getElementById('infoBackBtn').onclick=function(){infoPage.classList.remove('active');infoPage.setAttribute('aria-hidden','true');};
       document.getElementById('resetBtn').onclick = function(){
         if (window.confirm('Alle eingetragenen Patientendaten, Texte und Einsatzangaben löschen und ein Blankoformular herstellen?')) {
           window.location.reload();
