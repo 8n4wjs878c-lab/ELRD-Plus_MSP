@@ -194,6 +194,15 @@
       #injuryNotes{min-height:54px;height:54px;margin-top:8px;font-size:12px;padding:7px}.detail-status{margin-top:4px;font-size:10px}
     }
 
+    .mission-timer-wrap{display:flex;align-items:center;gap:6px;margin-left:auto;margin-right:auto}
+    .mission-timer{min-width:116px;height:38px;display:flex;align-items:center;justify-content:center;background:#ffd84d;color:#000;border:1px solid #d0aa13;border-radius:7px;font:900 21px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:1px;padding:0 8px}
+    .mission-timer-btn{height:38px;min-width:58px;border:1px solid #a7b3be;border-radius:7px;background:#fff;color:#173d5d;font-weight:900;font-size:12px;cursor:pointer}
+    .mission-timer-btn.running{background:#eef2f5}
+    .cat.red{background:#d71920;color:#fff;border-color:#a90f15}
+    .cat.yellow{background:#ffd84d;color:#332b00;border-color:#d3ae1d}
+    .cat.green{background:#42a85a;color:#fff;border-color:#2f7f42}
+    .cat.blue{background:#3d78c5;color:#fff;border-color:#285d9f}
+    .cat.black{background:#000;color:#ffd84d;border-color:#111;font-weight:900}
     .cat.cat-empty{background:#fff;color:#596775;border-color:#b8c3cc}
     .cat.affected{background:#e5e7e9;color:#3f474d;border-color:#aeb4b9;font-size:10px}
     .tp-head{width:34px;text-align:center;font-size:10px}.tp-cell{text-align:center;width:34px;padding-left:2px!important;padding-right:2px!important}.tp-btn{width:24px;height:24px;border-radius:50%;border:2px solid #9ba8b4;background:#fff;cursor:pointer;padding:0}.tp-btn.active{background:#d71920;border-color:#a90f15;box-shadow:inset 0 0 0 3px #fff}
@@ -530,7 +539,7 @@
 
       <div class="footerhint">
         <div><span class="info">ⓘ</span>Geburtsdatum eingeben → Alter wird automatisch berechnet. Alternativ kann das Alter direkt eingetragen werden.</div>
-        <div>Sichtungskategorie antippen → wechselt zur nächsten Kategorie (SK1 → SK2 → SK3 → SK4 → Schwarz → zurück zu SK1).</div><div>Transportmittel und Transportziel können als Freitext erfasst werden. „Kein Transport“ kann je Patient angekreuzt werden.</div>
+        <div>Sichtungskategorie antippen → wechselt zur nächsten Kategorie (SK1 → SK2 → SK3 → SK4 → EX → zurück zu SK1).</div><div>Transportmittel und Transportziel können als Freitext erfasst werden. „Kein Transport“ kann je Patient angekreuzt werden.</div>
       </div>
     </section>
 
@@ -660,8 +669,8 @@
   </div>
   <section id="printReport"></section>
 
-<section id="infoPage" class="info-page" aria-hidden="true"><div class="info-top"><button type="button" id="infoBackBtn" class="info-back">← Zurück</button><h1>ELRD+ Patientendokumentation – Info</h1></div><div class="info-content">
-<div class="info-card"><h2>Kurzanleitung</h2><p>ELRD+ dient zur übersichtlichen Erfassung und Dokumentation von Patienten im Rahmen eines rettungsdienstlichen Einsatzes.</p><p>Auf der Seite <strong>„Patientenerfassung“</strong> können bis zu acht Patienten erfasst werden. Neben Name, Geburtsdatum, Alter und Geschlecht können Sichtungskategorie, Transportmittel, Transportziel, Schockraumanmeldung und weitere einsatzrelevante Angaben dokumentiert werden.</p><p>Durch Antippen der <strong>durchlaufenden Nummer (1-8)</strong> öffnet sich die zugehörige Detailseite. Dort können unter anderem Verletzungsmuster und Auffälligkeiten nach dem ABCDE-Schema dokumentiert werden. Auch der dreistellige RMI (für den PZC-Code) kann eingegeben werden. Wenn das Alter bzw. das Geburtsdatum und die korrekte Sichtungskategorie eingetragen wurden, erscheint auf der Übersichtsseite der komplette PZC-Code für den Patienten und das Feld wird hellblau hinterlegt.</p><p>Die <strong>Sichtungskategorie auf der Übersichtsseite</strong> kann durch Antippen geändert werden.</p><p>Beim Öffnen der Anwendung ist zunächst <strong>keine Sichtungskategorie</strong> ausgewählt. Zusätzlich steht die Kategorie <strong>„Betroffener“</strong> zur Verfügung. Sie ist für Personen vorgesehen, die am Ereignis beteiligt waren oder sich im unmittelbaren Einsatzgeschehen befinden, jedoch nicht verletzt sind und deshalb keiner regulären Sichtungskategorie zugeordnet werden. Bei Auswahl wird das Feld hellgrau dargestellt. Für einen „Betroffenen“ wird <strong>kein PZC-Code</strong> erzeugt.</p><p><strong>TP – Transportpriorität:</strong> Das runde Feld hinter „Alter“ kann für Patienten aktiviert werden, die im Einsatz priorisiert in eine geeignete Klinik transportiert werden sollen. Nach dem Antippen erscheint die TP-Markierung rot. Ein erneutes Antippen hebt die Transportpriorität wieder auf.</p><p>Über <strong>„Teilen“</strong> können die erfassten Patientendaten für die weitere Verwendung bzw. zum Drucken ausgegeben werden. Es werden nur Patienten ausgegeben, für die tatsächlich Daten erfasst wurden.</p><p>Über <strong>„Blankoformular“</strong> werden nach einer Sicherheitsabfrage sämtliche Daten des aktuellen Einsatzes gelöscht und die Anwendung in den Ausgangszustand zurückgesetzt.</p></div>
+<section id="infoPage" class="info-page" aria-hidden="true"><div class="info-top"><button type="button" id="infoBackBtn" class="info-back">← Zurück</button><h1>ELRD+ Patientendokumentation – Info</h1><div class="mission-timer-wrap" aria-label="Einsatzdauer"><div id="missionTimer" class="mission-timer">00:00:00</div><button type="button" id="missionTimerBtn" class="mission-timer-btn">Start</button></div></div><div class="info-content">
+<div class="info-card"><h2>Kurzanleitung</h2><p>ELRD+ dient zur übersichtlichen Erfassung und Dokumentation von Patienten im Rahmen eines rettungsdienstlichen Einsatzes.</p><p>Auf der Seite <strong>„Patientenerfassung“</strong> können bis zu acht Patienten erfasst werden. Neben Name, Geburtsdatum, Alter und Geschlecht können Sichtungskategorie, Transportmittel, Transportziel, Schockraumanmeldung und weitere einsatzrelevante Angaben dokumentiert werden.</p><p>Durch Antippen der <strong>durchlaufenden Nummer (1-8)</strong> öffnet sich die zugehörige Detailseite. Dort können unter anderem Verletzungsmuster und Auffälligkeiten nach dem ABCDE-Schema dokumentiert werden. Auch der dreistellige RMI (für den PZC-Code) kann eingegeben werden. Wenn das Alter bzw. das Geburtsdatum und die korrekte Sichtungskategorie eingetragen wurden, erscheint auf der Übersichtsseite der komplette PZC-Code für den Patienten und das Feld wird hellblau hinterlegt.</p><p>Die <strong>Sichtungskategorie auf der Übersichtsseite</strong> kann durch Antippen geändert werden.</p><p>Beim Öffnen der Anwendung ist zunächst <strong>keine Sichtungskategorie</strong> ausgewählt. Zusätzlich steht die Kategorie <strong>„Betroffener“</strong> zur Verfügung. Sie ist für Personen vorgesehen, die am Ereignis beteiligt waren oder sich im unmittelbaren Einsatzgeschehen befinden, jedoch nicht verletzt sind und deshalb keiner regulären Sichtungskategorie zugeordnet werden. Bei Auswahl wird das Feld hellgrau dargestellt. Für einen „Betroffenen“ wird <strong>kein PZC-Code</strong> erzeugt.</p><p><strong>EX:</strong> Nach SK4 kann die Kategorie „EX“ gewählt werden. Sie wird mit schwarzem Hintergrund und gelber Schrift dargestellt.</p><p><strong>Einsatz-Stoppuhr:</strong> Die gelbe Stoppuhr neben der Überschrift kann bei Übernahme des Einsatzes an der Einsatzstelle mit „Start“ gestartet und mit „Stop“ angehalten werden. Sie zeigt die verstrichene Einsatzdauer in Stunden, Minuten und Sekunden an und unterstützt den Einsatzleiter dabei, zeitkritische Abläufe und Transportzeiten im Blick zu behalten.</p><p><strong>TP – Transportpriorität:</strong> Das runde Feld hinter „Alter“ kann für Patienten aktiviert werden, die im Einsatz priorisiert in eine geeignete Klinik transportiert werden sollen. Nach dem Antippen erscheint die TP-Markierung rot. Ein erneutes Antippen hebt die Transportpriorität wieder auf.</p><p>Über <strong>„Teilen“</strong> können die erfassten Patientendaten für die weitere Verwendung bzw. zum Drucken ausgegeben werden. Es werden nur Patienten ausgegeben, für die tatsächlich Daten erfasst wurden.</p><p>Über <strong>„Blankoformular“</strong> werden nach einer Sicherheitsabfrage sämtliche Daten des aktuellen Einsatzes gelöscht und die Anwendung in den Ausgangszustand zurückgesetzt.</p></div>
 <div class="info-card"><h2>Offline-Nutzung</h2><p>ELRD+ ist als Progressive Web App (PWA) ausgeführt und kann nach der Installation auf dem Home-Bildschirm auch ohne aktive Internetverbindung verwendet werden.</p><p>Die Daten eines laufenden Einsatzes werden <strong>lokal auf dem verwendeten iPad gespeichert</strong>, damit sie beim Schließen oder erneuten Öffnen der App erhalten bleiben.</p></div>
 <div class="info-card"><h2>Datenschutz</h2><p>Die in ELRD+ eingegebenen Patienten- und Einsatzdaten werden in der derzeitigen Version <strong>nicht an einen zentralen Server oder eine externe Datenbank übertragen</strong>. Die automatische Speicherung erfolgt ausschließlich lokal im Speicher des verwendeten Browsers bzw. der installierten Web-App.</p><p>Mit der Funktion <strong>„Blankoformular“</strong> werden die lokal für den aktuellen Einsatz gespeicherten Daten gelöscht.</p><p>Bei der Nutzung der Teilen-, Druck- oder E-Mail-Funktionen verlassen die ausgewählten Daten gegebenenfalls die Anwendung. Für die weitere Verarbeitung, Übermittlung und Aufbewahrung gelten die jeweiligen organisatorischen und datenschutzrechtlichen Vorgaben des Anwenders bzw. der verantwortlichen Stelle.</p><p>Das verwendete iPad sollte durch geeignete Zugriffsschutzmaßnahmen gegen unbefugte Nutzung gesichert sein.</p></div>
 <div class="info-card"><h2>Hinweis</h2><p>ELRD+ unterstützt die Dokumentation und Übersicht im Einsatz. Die Anwendung ersetzt keine medizinische Beurteilung, keine vorgeschriebenen Dokumentationssysteme und keine geltenden dienstlichen oder organisatorischen Vorgaben.</p></div>
@@ -672,11 +681,11 @@
       states: {},
       categories: [
         {label:'', cls:'cat-empty'},
-        {label:'SK1', cls:'sk1'},
-        {label:'SK2', cls:'sk2'},
-        {label:'SK3', cls:'sk3'},
-        {label:'SK4', cls:'sk4'},
-        {label:'Schwarz', cls:'black'},
+        {label:'SK1', cls:'red'},
+        {label:'SK2', cls:'yellow'},
+        {label:'SK3', cls:'green'},
+        {label:'SK4', cls:'blue'},
+        {label:'EX', cls:'black'},
         {label:'Betroffener', cls:'affected'}
       ]
     };
@@ -1207,8 +1216,47 @@
 
     })();
 
+    // --- Einsatz-Stoppuhr ---
+    var missionTimerEl = document.getElementById('missionTimer');
+    var missionTimerBtn = document.getElementById('missionTimerBtn');
+    var missionTimerKey = 'elrdplus_mission_timer_v1';
+    var missionTimerInterval = null;
+    var missionTimerState = {running:false, elapsed:0, startedAt:null};
+
+    function missionTimerFormat(ms){
+      var total=Math.floor(ms/1000), h=Math.floor(total/3600), m=Math.floor((total%3600)/60), sec=total%60;
+      return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');
+    }
+    function missionTimerCurrent(){
+      return missionTimerState.elapsed + (missionTimerState.running && missionTimerState.startedAt ? Date.now()-missionTimerState.startedAt : 0);
+    }
+    function missionTimerRender(){
+      missionTimerEl.textContent=missionTimerFormat(missionTimerCurrent());
+      missionTimerBtn.textContent=missionTimerState.running?'Stop':'Start';
+      missionTimerBtn.classList.toggle('running',missionTimerState.running);
+    }
+    function missionTimerSave(){ try{localStorage.setItem(missionTimerKey,JSON.stringify(missionTimerState));}catch(e){} }
+    function missionTimerTickStart(){
+      clearInterval(missionTimerInterval);
+      if(missionTimerState.running) missionTimerInterval=setInterval(missionTimerRender,250);
+    }
+    try{
+      var mt=JSON.parse(localStorage.getItem(missionTimerKey)||'null');
+      if(mt) missionTimerState=mt;
+    }catch(e){}
+    missionTimerBtn.addEventListener('click',function(){
+      if(missionTimerState.running){
+        missionTimerState.elapsed=missionTimerCurrent();
+        missionTimerState.running=false; missionTimerState.startedAt=null;
+      }else{
+        missionTimerState.running=true; missionTimerState.startedAt=Date.now();
+      }
+      missionTimerSave(); missionTimerRender(); missionTimerTickStart();
+    });
+    missionTimerRender(); missionTimerTickStart();
+
     // --- PWA / lokale Einsatzspeicherung ---
-    var ELRD_STORAGE_KEY = 'elrdplus_current_incident_v37';
+    var ELRD_STORAGE_KEY = 'elrdplus_current_incident_v37_sichtungfix';
     var ELRD_saveTimer = null;
     var ELRD_isResetting = false;
 
@@ -1332,6 +1380,7 @@
           ELRD_isResetting = true;
           clearTimeout(ELRD_saveTimer);
           clearStoredIncident();
+          try{localStorage.removeItem(missionTimerKey);}catch(e){}
           window.location.reload();
         }
       };
