@@ -1,4 +1,4 @@
-const CACHE = 'elrdplus-v37-roundinfo-6';
+const CACHE = 'elrdplus-v37-betroffener-8';
 const ASSETS = [
   './',
   './index.html',
