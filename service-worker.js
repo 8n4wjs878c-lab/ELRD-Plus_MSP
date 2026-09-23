@@ -1,4 +1,4 @@
-const CACHE = 'elrdplus-v37-datefield-fix-14';
+const CACHE = 'elrdplus-v37-date-robust-fix-15';
 const ASSETS = [
   './',
   './index.html',

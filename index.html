@@ -165,7 +165,7 @@
       main{padding:10px 10px 8px}
       .overview-top{margin-bottom:8px}.overview-title-text{min-width:275px}.overview-title-line{gap:10px}
       h1{font-size:27px}.slots{font-size:13px;margin-top:3px}
-      .incident-inline{grid-template-columns:112px 183px 145px auto auto 34px;gap:6px}
+      .incident-inline{grid-template-columns:104px 183px 145px auto auto 34px;gap:6px}
       .incident-field{gap:2px}.incident-field label{font-size:10px}.incident-field input{height:38px;font-size:13px;padding:0 8px}
       .incident-description{margin-top:6px}
       .tablewrap{overflow-x:auto}
@@ -228,6 +228,24 @@
       .print-patient{break-inside:avoid;border:1.5px solid #6f7c89;border-radius:5px;margin:0 0 10px;padding:8px}.print-patient h2{font-size:15px;margin:0 0 6px;background:#edf3f8;padding:5px 7px}.print-patient{border:0!important;border-radius:0!important;padding:0!important;margin:0 0 9px!important;break-inside:avoid}.print-patient h2{background:none!important;padding:0 0 4px!important;margin:0!important;font-size:12px!important}.print-lines{font-size:9.5px;line-height:1.35}.print-line{display:block}.print-line b{font-weight:800}.print-separator{border:0;border-top:1.5px solid #6f7c89;margin:7px 0 9px}.print-empty{padding:8px 0;font-size:11px}
       .print-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:9.5px}.print-table td{border:1px solid #c8d0d8;padding:5px 6px;vertical-align:top;word-wrap:break-word}.print-field{background:#fff}.print-label{font-weight:800;color:#425164;margin-right:5px}.print-value{font-weight:500;color:#000}.print-wide{width:auto}
       @page{size:A4 landscape;margin:9mm}
+    }
+
+  
+    /* iPad: Datumsfeld dauerhaft kompakt, unabhängig von Media Queries */
+    #incidentDate{
+      width:104px !important;
+      max-width:104px !important;
+      min-width:104px !important;
+      box-sizing:border-box !important;
+      font-size:11px !important;
+      padding-left:4px !important;
+      padding-right:2px !important;
+    }
+    .incident-inline > label:first-child{
+      width:104px !important;
+      max-width:104px !important;
+      min-width:104px !important;
+      overflow:hidden !important;
     }
 
   </style>
