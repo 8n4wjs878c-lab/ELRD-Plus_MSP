@@ -1,4 +1,4 @@
-const CACHE = 'elrdplus-v37-ex-timer-10';
+const CACHE = 'elrdplus-v37-timer-startfix-11';
 const ASSETS = [
   './',
   './index.html',
