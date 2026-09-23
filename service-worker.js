@@ -1,4 +1,4 @@
-const CACHE = 'elrdplus-v37-sichtungskat-12';
+const CACHE = 'elrdplus-v37-datefield-fix-14';
 const ASSETS = [
   './',
   './index.html',

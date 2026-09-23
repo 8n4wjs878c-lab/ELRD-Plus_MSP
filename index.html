@@ -14,7 +14,7 @@
     body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
     button,input,textarea{font:inherit}
     .topbar{height:108px;background:linear-gradient(90deg,var(--nav),var(--nav2));color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:7px 20px 18px}
-    .mainbar{display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .mainbar{position:relative;display:flex;align-items:center;justify-content:space-between;gap:18px}
     .brand{display:flex;align-items:center;gap:16px;min-width:0}
     .hamb{font-size:34px;line-height:1}
     .star{width:47px;height:47px;border:2px solid rgba(255,255,255,.85);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px}
@@ -165,7 +165,7 @@
       main{padding:10px 10px 8px}
       .overview-top{margin-bottom:8px}.overview-title-text{min-width:275px}.overview-title-line{gap:10px}
       h1{font-size:27px}.slots{font-size:13px;margin-top:3px}
-      .incident-inline{grid-template-columns:130px 165px 145px auto auto 34px;gap:6px}
+      .incident-inline{grid-template-columns:112px 183px 145px auto auto 34px;gap:6px}
       .incident-field{gap:2px}.incident-field label{font-size:10px}.incident-field input{height:38px;font-size:13px;padding:0 8px}
       .incident-description{margin-top:6px}
       .tablewrap{overflow-x:auto}
@@ -194,7 +194,7 @@
       #injuryNotes{min-height:54px;height:54px;margin-top:8px;font-size:12px;padding:7px}.detail-status{margin-top:4px;font-size:10px}
     }
 
-    .mission-timer-wrap{display:flex!important;visibility:visible!important;position:relative;z-index:20;flex-shrink:0;align-items:center;gap:6px;margin-left:auto;margin-right:auto}
+    .mission-timer-wrap{display:flex!important;visibility:visible!important;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:20;align-items:center;gap:6px}
     .mission-timer{min-width:116px;height:38px;display:flex;align-items:center;justify-content:center;background:#ffd84d;color:#000;border:1px solid #d0aa13;border-radius:7px;font:900 21px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:1px;padding:0 8px}
     .mission-timer-btn{height:38px;min-width:58px;border:1px solid #a7b3be;border-radius:7px;background:#fff;color:#173d5d;font-weight:900;font-size:12px;cursor:pointer}
     .mission-timer-btn.running{background:#eef2f5}
@@ -203,8 +203,10 @@
     .cat.green{background:#42a85a;color:#fff;border-color:#2f7f42}
     .cat.blue{background:#3d78c5;color:#fff;border-color:#285d9f}
     .cat.black{background:#000;color:#ffd84d;border-color:#111;font-weight:900}
-    .cat.cat-empty{background:#fff;color:#596775;border-color:#b8c3cc}
+    .cat.cat-empty{background:transparent;color:#596775;border-color:#cfd8e1}
     .cat.affected{background:#e5e7e9;color:#3f474d;border-color:#aeb4b9;font-size:10px}
+    #incidentDate{width:100%;max-width:112px;min-width:0;box-sizing:border-box;font-size:12px;padding-left:5px;padding-right:3px}
+    .sighting-head{width:74px;max-width:74px;white-space:nowrap;font-size:9px;overflow:hidden;text-align:center}
     .tp-head{width:34px;text-align:center;font-size:10px}.tp-cell{text-align:center;width:34px;padding-left:2px!important;padding-right:2px!important}.tp-btn{width:24px;height:24px;border-radius:50%;border:2px solid #9ba8b4;background:#fff;cursor:pointer;padding:0}.tp-btn.active{background:#d71920;border-color:#a90f15;box-shadow:inset 0 0 0 3px #fff}
     .info-btn{width:32px;height:32px;min-width:32px;padding:0;border:1px solid #8fa9bf;border-radius:50%;background:#eef5fb;color:#173d5d;font-weight:900;font-size:18px;font-family:Georgia,serif;font-style:italic;line-height:30px;text-align:center;cursor:pointer;align-self:center}
     .info-page{display:none;position:fixed;inset:0;z-index:5000;background:#f5f7fa;overflow:auto;color:#18232d}.info-page.active{display:block}
@@ -242,6 +244,7 @@
       <div class="brand">
         <div><div class="brand-title">Patientendokumentation</div><div class="brand-sub">Einsatzleiter Rettungsdienst</div></div>
       </div>
+      <div class="mission-timer-wrap" aria-label="Einsatzdauer"><div id="missionTimer" class="mission-timer">00:00:00</div><button type="button" id="missionTimerBtn" class="mission-timer-btn">Start</button></div>
       <div class="actions">
         <div class="brk-brand" aria-label="Bayerisches Rotes Kreuz Kreisverband Main-Spessart">
           <span class="brk-cross" aria-hidden="true"></span>
@@ -258,7 +261,7 @@
           <div class="overview-title-block">
             <div class="overview-title-line">
               <div class="overview-title-text">
-                <h1>ELRD-Patientenerfassung</h1><div class="mission-timer-wrap" aria-label="Einsatzdauer"><div id="missionTimer" class="mission-timer">00:00:00</div><button type="button" id="missionTimerBtn" class="mission-timer-btn">Start</button></div>
+                <h1>ELRD-Patientenerfassung</h1>
                 <div class="slots">8 Patientenplätze</div>
               </div>
               <div class="incident-inline">
@@ -290,7 +293,7 @@
       <div class="tablewrap">
         <table>
           <thead>
-            <tr><th style="width:68px;text-align:center">Nr.</th><th>Patientennr.</th><th>PZC-Code</th><th>Vorname</th><th>Nachname</th><th>Geschlecht</th><th>Geburtsdatum</th><th>Alter</th><th class="tp-head">TP</th><th>Sichtungskat.</th><th>Fzg.</th><th>Transportmittel</th><th>Transportziel</th><th>Schockraum</th><th>Kein Transport</th></tr>
+            <tr><th style="width:68px;text-align:center">Nr.</th><th>Patientennr.</th><th>PZC-Code</th><th>Vorname</th><th>Nachname</th><th>Geschlecht</th><th>Geburtsdatum</th><th>Alter</th><th class="tp-head">TP</th><th class="sighting-head">Sichtungskat.</th><th>Fzg.</th><th>Transportmittel</th><th>Transportziel</th><th>Schockraum</th><th>Kein Transport</th></tr>
           </thead>
           <tbody id="rows">
             
@@ -307,7 +310,7 @@
         </select></td>
         <td><input class="dob" type="date" aria-label="Geburtsdatum Patient 1"></td>
         <td><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 1"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität"></button></td>
-        <td><button class="cat green" type="button" aria-label="Sichtungskategorie Patient 1" onclick="cycleCategory(1,this)"></button></td><td class="vehicle-cell">
+        <td><button class="cat cat-empty" type="button" aria-label="Sichtungskategorie Patient 1" onclick="cycleCategory(1,this)"></button></td><td class="vehicle-cell">
           <select class="vehicle-type" aria-label="Fahrzeugart Patient 1">
             <option value="" selected>–</option>
             <option value="KTW">KTW</option>
@@ -337,7 +340,7 @@
         </select></td>
         <td><input class="dob" type="date" aria-label="Geburtsdatum Patient 2"></td>
         <td><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 2"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität"></button></td>
-        <td><button class="cat green" type="button" aria-label="Sichtungskategorie Patient 2" onclick="cycleCategory(2,this)"></button></td><td class="vehicle-cell">
+        <td><button class="cat cat-empty" type="button" aria-label="Sichtungskategorie Patient 2" onclick="cycleCategory(2,this)"></button></td><td class="vehicle-cell">
           <select class="vehicle-type" aria-label="Fahrzeugart Patient 2">
             <option value="" selected>–</option>
             <option value="KTW">KTW</option>
@@ -367,7 +370,7 @@
         </select></td>
         <td><input class="dob" type="date" aria-label="Geburtsdatum Patient 3"></td>
         <td><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 3"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität"></button></td>
-        <td><button class="cat green" type="button" aria-label="Sichtungskategorie Patient 3" onclick="cycleCategory(3,this)"></button></td><td class="vehicle-cell">
+        <td><button class="cat cat-empty" type="button" aria-label="Sichtungskategorie Patient 3" onclick="cycleCategory(3,this)"></button></td><td class="vehicle-cell">
           <select class="vehicle-type" aria-label="Fahrzeugart Patient 3">
             <option value="" selected>–</option>
             <option value="KTW">KTW</option>
@@ -397,7 +400,7 @@
         </select></td>
         <td><input class="dob" type="date" aria-label="Geburtsdatum Patient 4"></td>
         <td><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 4"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität"></button></td>
-        <td><button class="cat green" type="button" aria-label="Sichtungskategorie Patient 4" onclick="cycleCategory(4,this)"></button></td><td class="vehicle-cell">
+        <td><button class="cat cat-empty" type="button" aria-label="Sichtungskategorie Patient 4" onclick="cycleCategory(4,this)"></button></td><td class="vehicle-cell">
           <select class="vehicle-type" aria-label="Fahrzeugart Patient 4">
             <option value="" selected>–</option>
             <option value="KTW">KTW</option>
@@ -427,7 +430,7 @@
         </select></td>
         <td><input class="dob" type="date" aria-label="Geburtsdatum Patient 5"></td>
         <td><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 5"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität"></button></td>
-        <td><button class="cat green" type="button" aria-label="Sichtungskategorie Patient 5" onclick="cycleCategory(5,this)"></button></td><td class="vehicle-cell">
+        <td><button class="cat cat-empty" type="button" aria-label="Sichtungskategorie Patient 5" onclick="cycleCategory(5,this)"></button></td><td class="vehicle-cell">
           <select class="vehicle-type" aria-label="Fahrzeugart Patient 5">
             <option value="" selected>–</option>
             <option value="KTW">KTW</option>
@@ -457,7 +460,7 @@
         </select></td>
         <td><input class="dob" type="date" aria-label="Geburtsdatum Patient 6"></td>
         <td><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 6"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität"></button></td>
-        <td><button class="cat green" type="button" aria-label="Sichtungskategorie Patient 6" onclick="cycleCategory(6,this)"></button></td><td class="vehicle-cell">
+        <td><button class="cat cat-empty" type="button" aria-label="Sichtungskategorie Patient 6" onclick="cycleCategory(6,this)"></button></td><td class="vehicle-cell">
           <select class="vehicle-type" aria-label="Fahrzeugart Patient 6">
             <option value="" selected>–</option>
             <option value="KTW">KTW</option>
@@ -487,7 +490,7 @@
         </select></td>
         <td><input class="dob" type="date" aria-label="Geburtsdatum Patient 7"></td>
         <td><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 7"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität"></button></td>
-        <td><button class="cat green" type="button" aria-label="Sichtungskategorie Patient 7" onclick="cycleCategory(7,this)"></button></td><td class="vehicle-cell">
+        <td><button class="cat cat-empty" type="button" aria-label="Sichtungskategorie Patient 7" onclick="cycleCategory(7,this)"></button></td><td class="vehicle-cell">
           <select class="vehicle-type" aria-label="Fahrzeugart Patient 7">
             <option value="" selected>–</option>
             <option value="KTW">KTW</option>
@@ -517,7 +520,7 @@
         </select></td>
         <td><input class="dob" type="date" aria-label="Geburtsdatum Patient 8"></td>
         <td><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 8"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität"></button></td>
-        <td><button class="cat green" type="button" aria-label="Sichtungskategorie Patient 8" onclick="cycleCategory(8,this)"></button></td><td class="vehicle-cell">
+        <td><button class="cat cat-empty" type="button" aria-label="Sichtungskategorie Patient 8" onclick="cycleCategory(8,this)"></button></td><td class="vehicle-cell">
           <select class="vehicle-type" aria-label="Fahrzeugart Patient 8">
             <option value="" selected>–</option>
             <option value="KTW">KTW</option>
