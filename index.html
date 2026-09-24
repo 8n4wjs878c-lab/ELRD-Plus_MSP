@@ -262,6 +262,16 @@
     .age{width:44px!important;max-width:44px!important;min-width:0!important;box-sizing:border-box!important;text-align:center!important;padding-left:2px!important;padding-right:2px!important}
     th.age-head, td.age-cell{width:48px!important;max-width:48px!important}
 
+
+    /* iPad-Hardfix: TP startet leer; Geburtsdatum/Alter können nicht überlappen */
+    .dob-head,.dob-cell{width:96px!important;max-width:96px!important;min-width:96px!important;overflow:hidden!important}
+    .age-head,.age-cell{width:42px!important;max-width:42px!important;min-width:42px!important;overflow:hidden!important}
+    .dob-cell{padding-left:2px!important;padding-right:2px!important}
+    .age-cell{padding-left:2px!important;padding-right:2px!important}
+    input.dob{display:block!important;width:90px!important;max-width:90px!important;min-width:0!important;box-sizing:border-box!important;font-size:10px!important;padding:1px!important;margin:0!important}
+    input.age{display:block!important;width:36px!important;max-width:36px!important;min-width:0!important;box-sizing:border-box!important;font-size:11px!important;text-align:center!important;padding:1px!important;margin:0 auto!important}
+    .tp-btn:not(.active){background:#fff!important;border-color:#9ba8b4!important;box-shadow:none!important}
+
 </style>
   <link rel="manifest" href="./manifest.webmanifest">
   <meta name="theme-color" content="#0b2844">
@@ -322,7 +332,7 @@
       <div class="tablewrap">
         <table>
           <thead>
-            <tr><th style="width:68px;text-align:center">Nr.</th><th>Patientennr.</th><th>PZC-Code</th><th>Vorname</th><th>Nachname</th><th>Geschlecht</th><th>Geburtsdatum</th><th class="age-head">Alter</th><th class="tp-head">TP</th><th class="sighting-head">Sichtungskat.</th><th>Fzg.</th><th>Transportmittel</th><th>Transportziel</th><th>Schockraum</th><th>Kein Transport</th></tr>
+            <tr><th style="width:68px;text-align:center">Nr.</th><th>Patientennr.</th><th>PZC-Code</th><th>Vorname</th><th>Nachname</th><th>Geschlecht</th><th class="dob-head">Geburtsdatum</th><th class="age-head">Alter</th><th class="tp-head">TP</th><th class="sighting-head">Sichtungskat.</th><th>Fzg.</th><th>Transportmittel</th><th>Transportziel</th><th>Schockraum</th><th>Kein Transport</th></tr>
           </thead>
           <tbody id="rows">
             
@@ -337,8 +347,8 @@
           <option value="w">w</option>
           <option value="d">d</option>
         </select></td>
-        <td><input class="dob" type="date" aria-label="Geburtsdatum Patient 1"></td>
-        <td class="age-cell"><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 1"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität"></button></td>
+        <td class="dob-cell"><input class="dob" type="date" aria-label="Geburtsdatum Patient 1"></td>
+        <td class="age-cell"><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 1"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität" aria-pressed="false"></button></td>
         <td><button class="cat cat-empty" type="button" aria-label="Sichtungskategorie Patient 1" onclick="cycleCategory(1,this)"></button></td><td class="vehicle-cell">
           <select class="vehicle-type" aria-label="Fahrzeugart Patient 1">
             <option value="" selected>–</option>
@@ -367,8 +377,8 @@
           <option value="w">w</option>
           <option value="d">d</option>
         </select></td>
-        <td><input class="dob" type="date" aria-label="Geburtsdatum Patient 2"></td>
-        <td class="age-cell"><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 2"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität"></button></td>
+        <td class="dob-cell"><input class="dob" type="date" aria-label="Geburtsdatum Patient 2"></td>
+        <td class="age-cell"><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 2"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität" aria-pressed="false"></button></td>
         <td><button class="cat cat-empty" type="button" aria-label="Sichtungskategorie Patient 2" onclick="cycleCategory(2,this)"></button></td><td class="vehicle-cell">
           <select class="vehicle-type" aria-label="Fahrzeugart Patient 2">
             <option value="" selected>–</option>
@@ -397,8 +407,8 @@
           <option value="w">w</option>
           <option value="d">d</option>
         </select></td>
-        <td><input class="dob" type="date" aria-label="Geburtsdatum Patient 3"></td>
-        <td class="age-cell"><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 3"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität"></button></td>
+        <td class="dob-cell"><input class="dob" type="date" aria-label="Geburtsdatum Patient 3"></td>
+        <td class="age-cell"><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 3"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität" aria-pressed="false"></button></td>
         <td><button class="cat cat-empty" type="button" aria-label="Sichtungskategorie Patient 3" onclick="cycleCategory(3,this)"></button></td><td class="vehicle-cell">
           <select class="vehicle-type" aria-label="Fahrzeugart Patient 3">
             <option value="" selected>–</option>
@@ -427,8 +437,8 @@
           <option value="w">w</option>
           <option value="d">d</option>
         </select></td>
-        <td><input class="dob" type="date" aria-label="Geburtsdatum Patient 4"></td>
-        <td class="age-cell"><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 4"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität"></button></td>
+        <td class="dob-cell"><input class="dob" type="date" aria-label="Geburtsdatum Patient 4"></td>
+        <td class="age-cell"><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 4"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität" aria-pressed="false"></button></td>
         <td><button class="cat cat-empty" type="button" aria-label="Sichtungskategorie Patient 4" onclick="cycleCategory(4,this)"></button></td><td class="vehicle-cell">
           <select class="vehicle-type" aria-label="Fahrzeugart Patient 4">
             <option value="" selected>–</option>
@@ -457,8 +467,8 @@
           <option value="w">w</option>
           <option value="d">d</option>
         </select></td>
-        <td><input class="dob" type="date" aria-label="Geburtsdatum Patient 5"></td>
-        <td class="age-cell"><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 5"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität"></button></td>
+        <td class="dob-cell"><input class="dob" type="date" aria-label="Geburtsdatum Patient 5"></td>
+        <td class="age-cell"><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 5"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität" aria-pressed="false"></button></td>
         <td><button class="cat cat-empty" type="button" aria-label="Sichtungskategorie Patient 5" onclick="cycleCategory(5,this)"></button></td><td class="vehicle-cell">
           <select class="vehicle-type" aria-label="Fahrzeugart Patient 5">
             <option value="" selected>–</option>
@@ -487,8 +497,8 @@
           <option value="w">w</option>
           <option value="d">d</option>
         </select></td>
-        <td><input class="dob" type="date" aria-label="Geburtsdatum Patient 6"></td>
-        <td class="age-cell"><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 6"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität"></button></td>
+        <td class="dob-cell"><input class="dob" type="date" aria-label="Geburtsdatum Patient 6"></td>
+        <td class="age-cell"><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 6"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität" aria-pressed="false"></button></td>
         <td><button class="cat cat-empty" type="button" aria-label="Sichtungskategorie Patient 6" onclick="cycleCategory(6,this)"></button></td><td class="vehicle-cell">
           <select class="vehicle-type" aria-label="Fahrzeugart Patient 6">
             <option value="" selected>–</option>
@@ -517,8 +527,8 @@
           <option value="w">w</option>
           <option value="d">d</option>
         </select></td>
-        <td><input class="dob" type="date" aria-label="Geburtsdatum Patient 7"></td>
-        <td class="age-cell"><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 7"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität"></button></td>
+        <td class="dob-cell"><input class="dob" type="date" aria-label="Geburtsdatum Patient 7"></td>
+        <td class="age-cell"><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 7"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität" aria-pressed="false"></button></td>
         <td><button class="cat cat-empty" type="button" aria-label="Sichtungskategorie Patient 7" onclick="cycleCategory(7,this)"></button></td><td class="vehicle-cell">
           <select class="vehicle-type" aria-label="Fahrzeugart Patient 7">
             <option value="" selected>–</option>
@@ -547,8 +557,8 @@
           <option value="w">w</option>
           <option value="d">d</option>
         </select></td>
-        <td><input class="dob" type="date" aria-label="Geburtsdatum Patient 8"></td>
-        <td class="age-cell"><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 8"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität"></button></td>
+        <td class="dob-cell"><input class="dob" type="date" aria-label="Geburtsdatum Patient 8"></td>
+        <td class="age-cell"><input class="age" type="number" min="0" max="130" inputmode="numeric" placeholder="Alter eingeben" aria-label="Alter Patient 8"></td><td class="tp-cell"><button type="button" class="tp-btn" aria-label="Transportpriorität" aria-pressed="false"></button></td>
         <td><button class="cat cat-empty" type="button" aria-label="Sichtungskategorie Patient 8" onclick="cycleCategory(8,this)"></button></td><td class="vehicle-cell">
           <select class="vehicle-type" aria-label="Fahrzeugart Patient 8">
             <option value="" selected>–</option>
@@ -1303,7 +1313,7 @@
     missionTimerRender(); missionTimerTickStart();
 
     // --- PWA / lokale Einsatzspeicherung ---
-    var ELRD_STORAGE_KEY = 'elrdplus_current_incident_v37_pzcrealfix';
+    var ELRD_STORAGE_KEY = 'elrdplus_current_incident_v37_tp_dob_hardfix';
     var ELRD_saveTimer = null;
     var ELRD_isResetting = false;
 
@@ -1385,7 +1395,7 @@
           row.querySelector('.transport-dest').value = p.transportDest || '';
           row.querySelector('.shockroom').checked = !!p.shockroom;
           row.querySelector('.no-transport').checked = !!p.noTransport;
-          row.querySelector('.tp-btn').classList.toggle('active', !!p.transportPriority);
+          row.querySelector('.tp-btn').classList.toggle('active', p.transportPriority === true || p.transportPriority === 'Ja');
 
           var off = !!p.noTransport;
           row.querySelector('.transport-unit').disabled = off;
