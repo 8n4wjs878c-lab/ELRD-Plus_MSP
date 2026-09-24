@@ -252,7 +252,8 @@
     /* Sicherheitsabstand zur iPad-Statusleiste */
     body{padding-top:max(38px, env(safe-area-inset-top)) !important;}
 
-  </style>
+      .pzc.incomplete{background:#ffdede!important;color:#222!important}
+</style>
   <link rel="manifest" href="./manifest.webmanifest">
   <meta name="theme-color" content="#0b2844">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -268,9 +269,9 @@
       </div>
       <div class="mission-timer-wrap" aria-label="Einsatzdauer"><div id="missionTimer" class="mission-timer">00:00:00</div><button type="button" id="missionTimerBtn" class="mission-timer-btn">Start</button></div>
       <div class="actions">
-        <div class="brk-brand" aria-label="Bayerisches Rotes Kreuz Kreisverband Main-Spessart">
+        <div class="brk-brand" aria-label=" ">
           <span class="brk-cross" aria-hidden="true"></span>
-          <span><span class="brk-name">Bayerisches<br>Rotes Kreuz</span><span class="brk-kv">Kreisverband Main-Spessart</span></span>
+          <span><span class="brk-name">Bayerisches<br>Rotes Kreuz</span><span class="brk-kv"></span></span>
         </div>
       </div>
     </div>
@@ -838,29 +839,25 @@
     }
 
 
-    function updatePZC(patientNumber) {
-      var n = Number(patientNumber);
-      var row = document.querySelector('tr[data-n="' + n + '"]');
-      if (!row || !ELRD.states[n]) return;
-
-      var rmi = String(ELRD.states[n].rmi || '').replace(/\D/g,'').slice(0,3);
-      var categoryIndex = ELRD.states[n].cat;
-      var category = (categoryIndex >= 0 && categoryIndex <= 2) ? String(categoryIndex + 1) : '';
-
-      var ageText = row.querySelector('.age').value.trim();
-      var age = /^\d{1,3}$/.test(ageText) ? Number(ageText) : null;
-      var agePart = (age !== null && age >= 0 && age <= 99) ? String(age).padStart(2,'0') : '';
-
-      var complete = rmi.length === 3 && category.length === 1 && agePart.length === 2;
-      var display = (rmi || '---') + (agePart || '--') + (category || '-');
-
-      var field = row.querySelector('.pzc-code');
-      field.textContent = display;
-      field.classList.toggle('complete', complete);
-      field.classList.toggle('incomplete', !complete);
-      field.title = complete
-        ? 'PZC vollständig: RMI ' + rmi + ' · Alter ' + agePart + ' · Sichtung ' + category
-        : 'PZC unvollständig – benötigt werden 3-stelliger RMI-Code, zweistelliges Alter und Sichtungskategorie 1–3';
+    function updatePZC(n){
+      var row=document.querySelector('tr[data-n="'+n+'"]');
+      var pzc=row.querySelector('.pzc'), st=ELRD.states[n], c=ELRD.categories[st.cat];
+      var rmi=(st.rmi||'').replace(/\D/g,'').slice(0,3);
+      if(rmi.length!==3 || !c || !['SK1','SK2','SK3'].includes(c.label)){
+        pzc.value='------'; pzc.classList.remove('complete'); pzc.classList.add('incomplete'); return;
+      }
+      var age=(row.querySelector('.age').value||'').replace(/\D/g,'');
+      if(!age){
+        var dob=row.querySelector('.dob').value;
+        if(dob){var b=new Date(dob),now=new Date(),a=now.getFullYear()-b.getFullYear(),md=now.getMonth()-b.getMonth();if(md<0||(md===0&&now.getDate()<b.getDate()))a--;if(a>=0)age=String(a);}
+      }
+      var sm={SK1:'1',SK2:'2',SK3:'3'}, sight=sm[c.label]||'';
+      if(age && sight){
+        age=String(Math.max(0,Math.min(99,parseInt(age,10)))).padStart(2,'0');
+        pzc.value=rmi+age+sight; pzc.classList.remove('incomplete'); pzc.classList.add('complete');
+      }else{
+        pzc.value='------'; pzc.classList.remove('complete'); pzc.classList.add('incomplete');
+      }
     }
 
     function calculateAge(value) {
@@ -971,7 +968,7 @@
           '<span class="print-line"><b>Geschlecht:</b> '+esc(p.gender)+'</span>'+
           '<span class="print-line"><b>Geburtsdatum:</b> '+esc(p.dob||'–')+'</span>'+
           '<span class="print-line"><b>Alter:</b> '+esc(p.age||'–')+'</span>'+
-          '<span class="print-line"><b>Sichtung:</b> '+esc(p.category)+'</span>'+'<span class="print-line"><b>Transportpriorität (TP):</b> '+esc(p.transportPriority)+'</span>'+
+          '<span class="print-line"><b>Sichtung:</b> '+esc(p.category)+'</span>'+'<span class="print-line"><b>Transportpriorität (TP):</b> '+esc(p.transportPriority || 'Nein')+'</span>'+
           '<span class="print-line"><b>Fahrzeug:</b> '+esc(p.vehicle)+'</span>'+
           '<span class="print-line"><b>Transportmittel:</b> '+esc(p.unit||'–')+'</span>'+
           '<span class="print-line"><b>Transportziel:</b> '+esc(p.dest||'–')+'</span>'+
@@ -1008,7 +1005,7 @@
         lines.push('Geburtsdatum\t'+(p.dob||'–'));
         lines.push('Alter\t'+(p.age||'–'));
         lines.push('Sichtung\t'+p.category);
-        lines.push('Transportpriorität (TP)\t'+p.transportPriority);
+        lines.push('Transportpriorität (TP)\t'+(p.transportPriority || 'Nein'));
         lines.push('Fahrzeug\t'+p.vehicle);
         lines.push('Transportmittel\t'+(p.unit||'–'));
         lines.push('Transportziel\t'+(p.dest||'–'));
@@ -1307,7 +1304,7 @@
           transportDest: row.querySelector('.transport-dest').value,
           shockroom: row.querySelector('.shockroom').checked,
           noTransport: row.querySelector('.no-transport').checked,
-          transportPriority: row.querySelector('.tp-btn').classList.contains('active')
+          transportPriority: (row.querySelector('.tp-btn') && row.querySelector('.tp-btn').classList.contains('active')) ? 'Ja' : 'Nein'
         };
       }
       return data;

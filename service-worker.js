@@ -1,4 +1,4 @@
-const CACHE = 'elrdplus-v37-safearea-infoclean-16';
+const CACHE = 'elrdplus-v37-pzc-sk123-18';
 const ASSETS = [
   './',
   './index.html',
