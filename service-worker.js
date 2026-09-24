@@ -1,4 +1,4 @@
-const CACHE = 'elrdplus-v37-pzc-sk123-18';
+const CACHE = 'elrdplus-v37-pzc-logo-realfix-19';
 const ASSETS = [
   './',
   './index.html',

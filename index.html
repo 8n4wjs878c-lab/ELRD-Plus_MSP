@@ -253,6 +253,9 @@
     body{padding-top:max(38px, env(safe-area-inset-top)) !important;}
 
       .pzc.incomplete{background:#ffdede!important;color:#222!important}
+
+    .app-brand{padding-left:12px!important;border-left:1px solid rgba(255,255,255,.28)}
+    .header-app-logo{width:54px;height:54px;object-fit:contain;border-radius:10px;display:block}
 </style>
   <link rel="manifest" href="./manifest.webmanifest">
   <meta name="theme-color" content="#0b2844">
@@ -269,10 +272,7 @@
       </div>
       <div class="mission-timer-wrap" aria-label="Einsatzdauer"><div id="missionTimer" class="mission-timer">00:00:00</div><button type="button" id="missionTimerBtn" class="mission-timer-btn">Start</button></div>
       <div class="actions">
-        <div class="brk-brand" aria-label=" ">
-          <span class="brk-cross" aria-hidden="true"></span>
-          <span><span class="brk-name">Bayerisches<br>Rotes Kreuz</span><span class="brk-kv"></span></span>
-        </div>
+        <div class="brk-brand app-brand" aria-label="ELRD+"><img src="./elrd-icon-v37.png" alt="ELRD+" class="header-app-logo"></div>
       </div>
     </div>
   </header>
@@ -841,23 +841,42 @@
 
     function updatePZC(n){
       var row=document.querySelector('tr[data-n="'+n+'"]');
-      var pzc=row.querySelector('.pzc'), st=ELRD.states[n], c=ELRD.categories[st.cat];
+      var pzc=row.querySelector('.pzc-code');
+      var st=ELRD.states[n];
+      var c=ELRD.categories[st.cat];
       var rmi=(st.rmi||'').replace(/\D/g,'').slice(0,3);
-      if(rmi.length!==3 || !c || !['SK1','SK2','SK3'].includes(c.label)){
-        pzc.value='------'; pzc.classList.remove('complete'); pzc.classList.add('incomplete'); return;
+
+      function emptyPZC(){
+        pzc.textContent='------';
+        pzc.classList.remove('complete');
+        pzc.classList.add('incomplete');
       }
+
+      // PZC nur bei vollständigem RMI UND SK1, SK2 oder SK3.
+      if(rmi.length!==3 || !c || !['SK1','SK2','SK3'].includes(c.label)){
+        emptyPZC();
+        return;
+      }
+
       var age=(row.querySelector('.age').value||'').replace(/\D/g,'');
       if(!age){
         var dob=row.querySelector('.dob').value;
-        if(dob){var b=new Date(dob),now=new Date(),a=now.getFullYear()-b.getFullYear(),md=now.getMonth()-b.getMonth();if(md<0||(md===0&&now.getDate()<b.getDate()))a--;if(a>=0)age=String(a);}
+        if(dob){
+          var b=new Date(dob), now=new Date();
+          var a=now.getFullYear()-b.getFullYear();
+          var md=now.getMonth()-b.getMonth();
+          if(md<0 || (md===0 && now.getDate()<b.getDate())) a--;
+          if(a>=0) age=String(a);
+        }
       }
-      var sm={SK1:'1',SK2:'2',SK3:'3'}, sight=sm[c.label]||'';
-      if(age && sight){
-        age=String(Math.max(0,Math.min(99,parseInt(age,10)))).padStart(2,'0');
-        pzc.value=rmi+age+sight; pzc.classList.remove('incomplete'); pzc.classList.add('complete');
-      }else{
-        pzc.value='------'; pzc.classList.remove('complete'); pzc.classList.add('incomplete');
-      }
+
+      if(!age){ emptyPZC(); return; }
+
+      var sight={SK1:'1',SK2:'2',SK3:'3'}[c.label];
+      age=String(Math.max(0,Math.min(99,parseInt(age,10)))).padStart(2,'0');
+      pzc.textContent=rmi+age+sight;
+      pzc.classList.remove('incomplete');
+      pzc.classList.add('complete');
     }
 
     function calculateAge(value) {
@@ -1278,7 +1297,7 @@
     missionTimerRender(); missionTimerTickStart();
 
     // --- PWA / lokale Einsatzspeicherung ---
-    var ELRD_STORAGE_KEY = 'elrdplus_current_incident_v37_timerfix';
+    var ELRD_STORAGE_KEY = 'elrdplus_current_incident_v37_pzcrealfix';
     var ELRD_saveTimer = null;
     var ELRD_isResetting = false;
 
