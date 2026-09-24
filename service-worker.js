@@ -1,4 +1,4 @@
-const CACHE = 'elrdplus-v37-tp-dob-hardfix-21';
+const CACHE = 'elrdplus-v37-tp-export-realfix-22';
 const ASSETS = [
   './',
   './index.html',

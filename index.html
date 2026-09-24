@@ -977,8 +977,18 @@
         shock:val(row,'.shockroom'), noTransport:val(row,'.no-transport'),
         rmi:st.rmi || '', injury:injury.join('; ') || '–', regions:regions.join('; ') || '–',
         abcde:abcde.join('; ') || 'kein Problem dokumentiert', notes:st.notes || '–'
-      };
+      ,
+          transportPriority: !!(row.querySelector('.tp-btn') && row.querySelector('.tp-btn').classList.contains('active'))
+        };
     }
+    
+    function exportTPValue(patientIndex, p){
+      if(p && (p.transportPriority === true || p.transportPriority === 'Ja')) return 'Ja';
+      var row=document.querySelector('tr[data-n="'+patientIndex+'"]');
+      var btn=row ? row.querySelector('.tp-btn') : null;
+      return (btn && btn.classList.contains('active')) ? 'Ja' : 'Nein';
+    }
+
     function buildPrintReport() {
       var report = document.getElementById('printReport');
       var date = document.getElementById('incidentDate').value || '–';
@@ -1003,7 +1013,7 @@
           '<span class="print-line"><b>Geschlecht:</b> '+esc(p.gender)+'</span>'+
           '<span class="print-line"><b>Geburtsdatum:</b> '+esc(p.dob||'–')+'</span>'+
           '<span class="print-line"><b>Alter:</b> '+esc(p.age||'–')+'</span>'+
-          '<span class="print-line"><b>Sichtung:</b> '+esc(p.category)+'</span>'+'<span class="print-line"><b>Transportpriorität (TP):</b> '+esc((p.transportPriority === true || p.transportPriority === 'Ja') ? 'Ja' : 'Nein')+'</span>'+
+          '<span class="print-line"><b>Sichtung:</b> '+esc(p.category)+'</span>'+'<span class="print-line"><b>Transportpriorität (TP):</b> '+esc(exportTPValue(n,p))+'</span>'+
           '<span class="print-line"><b>Fahrzeug:</b> '+esc(p.vehicle)+'</span>'+
           '<span class="print-line"><b>Transportmittel:</b> '+esc(p.unit||'–')+'</span>'+
           '<span class="print-line"><b>Transportziel:</b> '+esc(p.dest||'–')+'</span>'+
@@ -1040,7 +1050,7 @@
         lines.push('Geburtsdatum\t'+(p.dob||'–'));
         lines.push('Alter\t'+(p.age||'–'));
         lines.push('Sichtung\t'+p.category);
-        lines.push('Transportpriorität (TP)\t'+((p.transportPriority === true || p.transportPriority === 'Ja') ? 'Ja' : 'Nein'));
+        lines.push('Transportpriorität (TP)	'+exportTPValue(n,p));
         lines.push('Fahrzeug\t'+p.vehicle);
         lines.push('Transportmittel\t'+(p.unit||'–'));
         lines.push('Transportziel\t'+(p.dest||'–'));
